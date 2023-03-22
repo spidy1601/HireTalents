@@ -1,0 +1,42 @@
+Hello
+<br>
+<br>
+<br>
+
+<form action={% url 'index' %} method="post">
+    {% csrf_token %}
+{%for que in questions%}
+    {{que.question_text}}
+    <br>
+    {%if que.type == 'radio'%}
+    
+        {%for opt in options%}
+        
+            {% if opt.question.type == 'radio' and opt.question.id == que.id %}
+            <input type="radio" id={{opt.id}} name={{que.id}} value={{opt.id}}>
+            <label for={{opt.id}}>{{opt.option_text}}</label><br>
+            <br>       
+            {% endif %}    
+        {%endfor%}
+    {%endif%}
+
+    {%if que.type == 'choice'%}
+        {%for opt in options%}
+            {% if opt.question.type == 'choice' and opt.question.id == que.id%}
+            <input type="checkbox" id={{opt.id}} name={{que.id}} value={{opt.id}}>
+            <label for={{opt.id}}> {{opt.option_text}}</label><br>
+            <br>       
+            {% endif %}    
+        {%endfor%}
+    {%endif%}
+
+    {%if que.type == 'text'%}
+        <label for={{que.id}}>{{que.question_text}}</label><br>
+        <input type="text" id={{que.id}} name={{que.id}}>
+    {%endif%}
+
+    <br>
+    <br>
+{%endfor%}
+<button type="submit">Submit </button>
+</form>
