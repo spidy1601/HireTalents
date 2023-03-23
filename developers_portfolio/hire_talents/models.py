@@ -24,5 +24,9 @@ class Option(models.Model):
 
     def __str__(self):
         return self.option_text[:30]
+    
+class UserRequirement(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    
 
 

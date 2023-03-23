@@ -6,5 +6,6 @@ from .models import Question,Option
 def index(request):
     questions = Question.objects.all()
     options = Option.objects.all()
+    form = OptionForm(request.POST)
     print(request.POST)
-    return render(request,'index.html',{'questions':questions,'options':options})
+    return render(request,'index.html',{'questions':questions,'options':options,'form':form})

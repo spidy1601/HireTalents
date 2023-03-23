@@ -2,8 +2,11 @@ Hello
 <br>
 <br>
 <br>
-
-<form action={% url 'index' %} method="post">
+{% for i in form.question%}
+{{i}}
+{{form.option_text}}
+{%endfor%}
+{% comment %} <form action={% url 'index' %} method="post">
     {% csrf_token %}
 {%for que in questions%}
     {{que.question_text}}
@@ -39,4 +42,4 @@ Hello
     <br>
 {%endfor%}
 <button type="submit">Submit </button>
-</form>
+</form> {% endcomment %}
