@@ -14,10 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from hire_talents import views
+from django.urls import path,include
+from hire_talents import views as hire_views
+from djf_surveys import views 
+
+from djf_surveys.app_settings import SURVEYS_ADMIN_BASE_PATH 
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/',views.index,name='index'),
+    path('',hire_views.home,name='home'),
+    path('surveys/create/<str:slug>/', hire_views.CreateSurveyFormViewUpdated.as_view(), name='create'),
+
+    path('surveys/', include('djf_surveys.urls')),
+
 ]
