@@ -1,0 +1,117 @@
+<!doctype html>
+{% load djf_survey_tags i18n static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Survey" %} - {{ title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    {% block extra_css %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css"/>{% endblock %}
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            {% include 'djf_surveys/components/alert.html' %}
+        {% endfor %}
+    {% endif %}
+    <div class="container mx-auto">
+        {% block content %} 
+        <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-lg mx-auto">
+                <h1 class="text-2xl font-bold text-center text-blue-500 sm:text-3xl">{{ title_page }}</h1>
+    
+                <p class="max-w-md mx-auto mt-4 text-center text-gray-500">
+                    {{ sub_title_page }}dasfs
+                </p>
+    
+                <form method="post" id="survey-form">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="question {% if not forloop.first %}hidden{% endif %}">
+                            <div class="p-8 mt-6 mb-0 space-y-4 rounded-lg shadow-md border border-gray-200 bg-white">
+                                <label for="email" class="text-base font-medium">{{ field.label }}</label>
+    
+                                <div class="mt-1">
+                                    {% if field.field.widget.input_type == 'radio' or field.field.widget.input_type == 'checkbox' %}
+                                        {{ field }}
+                                    {% else %}
+                                        {% comment %} {{ field }} {% endcomment %}
+                                        {{ field|addclass:'w-full p-4 pr-12 text-sm border-gray-500 rounded-lg shadow-sm' }}
+                                    {% endif %}
+                                </div>
+                                <p class="text-xs text-gray-400">{{ field.help_text }}</p>
+                                <span class="text-xs text-red-400">{{ field.errors }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+    
+                    <div class="buttons">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-primary prev-btn w-half mt-5 px-5 py-3 text-sm font-medium text-white bg-red-500 rounded-lg" {% if forloop.first %}style="display:none"{% endif %}>Previous</button>
+                        </div>
+                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                        <button type="button" class="btn btn-primary next-btn  w-half mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" {% if forloop.last %}style="display:none"{% endif %}>Next</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary submit-btn block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" {% if not forloop.last %}style="display:none"{% endif %}>Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+
+    {% include 'djf_surveys/components/alert_js.html' %}
+    {% block extra_js %}<script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+    <script>
+        const form = document.getElementById("survey-form");
+        const prevBtn = form.querySelector(".prev-btn");
+        const nextBtn = form.querySelector(".next-btn");
+        const submitBtn = form.querySelector(".submit-btn");
+        const questions = form.querySelectorAll(".question");
+        let currentQuestion = 0;
+
+        // hide all questions except the first one
+        Array.from(questions).forEach((question, index) => {
+            if (index !== currentQuestion) {
+                question.classList.add("hidden");
+            }
+        });
+
+        // add event listeners to buttons
+        prevBtn.addEventListener("click", showPreviousQuestion);
+        nextBtn.addEventListener("click", showNextQuestion);
+
+        function showPreviousQuestion() {
+            questions[currentQuestion].classList.add("hidden");
+            currentQuestion--;
+            questions[currentQuestion].classList.remove("hidden");
+            if (currentQuestion === 0) {
+                prevBtn.style.display = "none";
+                if (submitBtn) {
+                    submitBtn.style.display = "none";
+                }
+            }
+            if (currentQuestion < questions.length - 1) {
+                nextBtn.style.display = "block";
+                submitBtn.style.display = "none";
+                }
+                } 
+
+            function showNextQuestion() {
+        if (currentQuestion < questions.length - 1) {
+            questions[currentQuestion].classList.add("hidden");
+            currentQuestion++;
+            questions[currentQuestion].classList.remove("hidden");
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.style.display = "none";
+                submitBtn.style.display = "block";
+            }
+            if (currentQuestion > 0) {
+                prevBtn.style.display = "block";
+            }
+        }
+    }
+</script>{% endblock %}
+</body>
+</html>

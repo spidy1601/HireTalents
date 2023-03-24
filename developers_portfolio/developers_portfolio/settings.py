@@ -126,7 +126,7 @@ STATIC_ROOT = os.path.join(BASE_DIR / 'static/')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# SURVEY_MASTER_TEMPLATE= 'master.html'
 SURVEY_PAGINATION_NUMBER = {
     'answer_list': 10,
     'survey_list': 10

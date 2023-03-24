@@ -24,7 +24,7 @@ from djf_surveys.app_settings import SURVEYS_ADMIN_BASE_PATH
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',hire_views.home,name='home'),
-    path('surveys/create/<str:slug>/', hire_views.CreateSurveyFormViewUpdated.as_view(), name='create'),
+    path('surveys/create/<str:slug>/', hire_views.CreateSurveyFormView.as_view(), name='create'),
 
     path('surveys/', include('djf_surveys.urls')),
 

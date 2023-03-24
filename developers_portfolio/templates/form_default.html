@@ -7,28 +7,6 @@
 {% endblock %}
 
 {% block content %}
-
-    <script>
-        document.getElementById("next-btn").addEventListener("click", function() {
-            // Hide the current question
-            var currentQuestion = document.querySelector(".question:not(.hidden)");
-            currentQuestion.classList.add("hidden");
-            
-            // Show the next question
-            var nextQuestion = currentQuestion.nextElementSibling;
-            nextQuestion.classList.remove("hidden");
-          });
-
-          document.getElementById("prev-btn").addEventListener("click", function() {
-            // Hide the current question
-            var currentQuestion = document.querySelector(".question:not(.hidden)");
-            currentQuestion.classList.add("hidden");
-            
-            // Show the previous question
-            var prevQuestion = currentQuestion.previousElementSibling;
-            prevQuestion.classList.remove("hidden");
-          });
-    </script>
     <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
         <div class="max-w-lg mx-auto">
             <h1 class="text-2xl font-bold text-center text-blue-500 sm:text-3xl">{{ title_page }}</h1>
@@ -40,7 +18,6 @@
             <form method="post">
                 {% csrf_token %}
                 {% for field in form %}
-                    <div id="question{{ forloop.counter }}" class="question{% if forloop.counter != 1 %} hidden{% endif %}">
                     <div class="p-8 mt-6 mb-0 space-y-4 rounded-lg shadow-md border border-gray-200 bg-white">
                         <label for="email" class="text-base font-medium">{{ field.label }}</label>
 
@@ -54,21 +31,12 @@
                         <p class="text-xs text-gray-400">{{ field.help_text }}</p>
                         <span class="text-xs text-red-400">{{ field.errors }}</span>
                     </div>
-                    
-                    </div>
 
                 {% endfor %}
-                
+
                 <button type="submit" class="block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg">
                     {% trans "Submit" %}
                 </button>
-
-                <button type="button" id="prev-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
-                    Previous
-                  </button>
-                  <button type="button" id="next-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r">
-                    Next
-                  </button>
             </form>
         </div>
     </div>
