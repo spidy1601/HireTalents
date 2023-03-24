@@ -47,12 +47,8 @@
                     {% endfor %}
     
                     <div class="buttons">
-                        <div class="btn-group mr-2" role="group" aria-label="First group">
                         <button type="button" class="btn btn-primary prev-btn w-half mt-5 px-5 py-3 text-sm font-medium text-white bg-red-500 rounded-lg" {% if forloop.first %}style="display:none"{% endif %}>Previous</button>
-                        </div>
-                        <div class="btn-group mr-2" role="group" aria-label="Second group">
-                        <button type="button" class="btn btn-primary next-btn  w-half mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" {% if forloop.last %}style="display:none"{% endif %}>Next</button>
-                        </div>
+                        <button type="button" class="btn btn-primary next-btn  w-half mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg ml-2" {% if forloop.last %}style="display:none"{% endif %}>Next</button>
                         <button type="submit" class="btn btn-primary submit-btn block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" {% if not forloop.last %}style="display:none"{% endif %}>Submit</button>
                     </div>
                 </form>
