@@ -7,6 +7,7 @@
     <title>{% trans "Survey" %} - {{ title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.20.0/css/mdb.min.css" />
     {% block extra_css %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css"/>{% endblock %}
 </head>
 <body>
@@ -30,7 +31,27 @@
     
                                 <div class="mt-1" id="choice_list">
                                     {% if field.field.widget.input_type == 'radio' or field.field.widget.input_type == 'checkbox' %}
-                                        {{ field }}
+                                    {% if field|length < 7 %}   
+                                    {{ field}}
+                                    {%else%}
+                                    <select class="select" multiple data-mdb-filter="true"  >
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                        <option value="4">Four</option>
+                                        <option value="5">Five</option>
+                                        <option value="6">Six</option>
+                                        <option value="7">Seven</option>
+                                        <option value="8">Eight</option>
+                                        <option value="9">Nine</option>
+                                        <option value="10">Ten</option>
+                                      </select>
+                                    {% for f in field|slice:':5' %}
+                                    {{f}}
+                                  {% endfor %}
+
+                                    {%endif%}
+
                                     {% else %}
                                         {% comment %} {{ field }} {% endcomment %}
                                         {{ field|addclass:'w-full p-4 pr-12 text-sm border-gray-500 rounded-lg shadow-sm' }}
@@ -63,7 +84,17 @@
         const questions = form.querySelectorAll(".question");
         let currentQuestion = 0;
 
-        
+        {% comment %} let var_1,var_2
+        var_1 = document.getElementById('id_field_survey_5')
+        var_2  =var_1.getElementsByTagName('*').length
+        var_3 = var_1.getElementsByTagName('div')
+        console.log(var_1.children.length)
+        console.log(var_3)
+        if (var_1.children.length > 7){
+            console.log("HI")
+            let pattern = /[0-9]/g
+
+        } {% endcomment %}
         // hide all questions except the first one
         Array.from(questions).forEach((question, index) => {
             if (index !== currentQuestion) {
