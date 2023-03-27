@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 
-from djf_surveys.views import SurveyFormView,CreateSurveyFormView
+from djf_surveys.views import SurveyFormView
 from django.contrib import messages
 from djf_surveys.models import Survey, UserAnswer
 from django.utils.translation import gettext, gettext_lazy as _  
@@ -10,19 +10,17 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormMixin
 from djf_surveys.mixin import ContextTitleMixin
 from djf_surveys.forms import CreateSurveyForm
+from django.views.generic import DetailView 
 
 
 
-# Create your views here.
-
-class SurveyFormViewUpdated(SurveyFormView):
+class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
     template_name = 'master.html'
-
-class CreateSurveyFormView(ContextTitleMixin, SurveyFormViewUpdated):
     model = Survey
     form_class = CreateSurveyForm
     success_url = reverse_lazy("home")
     title_page = _("Add Survey")
+
 
     def dispatch(self, request, *args, **kwargs):
         survey = self.get_object()
