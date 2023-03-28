@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path,include
 from hire_talents import views as hire_views
 from djf_surveys import views 
+from django.conf import settings
+from django.conf.urls.static import static
 
 from djf_surveys.app_settings import SURVEYS_ADMIN_BASE_PATH 
 
@@ -24,8 +26,9 @@ from djf_surveys.app_settings import SURVEYS_ADMIN_BASE_PATH
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',hire_views.home,name='home'),
+    path('developers',hire_views.display_developers,name='all_developers'),
     path('surveys/create/<str:slug>/', hire_views.CreateSurveyFormView.as_view(), name='create'),
-
+    
     path('surveys/', include('djf_surveys.urls')),
 
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

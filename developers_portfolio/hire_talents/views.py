@@ -50,3 +50,6 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
 def home(request):
     slug="clients-requirements"
     return render(request,'home.html',{'slug_text':slug})
+
+def display_developers(request):
+    return render(request,'all-developers.html')

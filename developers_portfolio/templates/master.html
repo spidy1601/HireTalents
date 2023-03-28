@@ -25,7 +25,7 @@
             <div class="max-w-lg mx-auto">
                 <h1 class="text-2xl font-bold text-center text-blue-500 sm:text-3xl">LOGO</h1>
     
-                <form method="post" id="survey-form">
+                <form method="post" id="survey-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
                         <div class="question {% if not forloop.first %}hidden{% endif %}">
@@ -34,30 +34,8 @@
     
                                 <div class="mt-1" id="choice_list">
                                     {% if field.field.widget.input_type == 'radio' or field.field.widget.input_type == 'checkbox' %}
-                                    {% if field|length < 7 %}   
                                     {{ field}}
                                     {%else%}
-                                    <select class="select" multiple data-mdb-filter="true">
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                        <option value="4">Four</option>
-                                        <option value="5">Five</option>
-                                        <option value="6">Six</option>
-                                        <option value="7">Seven</option>
-                                        <option value="8">Eight</option>
-                                        <option value="9">Nine</option>
-                                        <option value="10">Ten</option>
-                                      </select>
-
-                                    {% for f in field|slice:':5' %}
-                                    {{f}}
-                                  {% endfor %}
-
-                                    {%endif%}
-
-                                    {% else %}
-                                        {% comment %} {{ field }} {% endcomment %}
                                         {{ field|addclass:'w-full p-4 pr-12 text-sm border-gray-500 rounded-lg shadow-sm' }}
                                     {% endif %}
                                 </div>
@@ -90,18 +68,6 @@
         const questions = form.querySelectorAll(".question");
         let currentQuestion = 0;
 
-        {% comment %} let var_1,var_2
-        var_1 = document.getElementById('id_field_survey_5')
-        var_2  =var_1.getElementsByTagName('*').length
-        var_3 = var_1.getElementsByTagName('div')
-        console.log(var_1.children.length)
-        console.log(var_3)
-        if (var_1.children.length > 7){
-            console.log("HI")
-            let pattern = /[0-9]/g
-
-        } {% endcomment %}
-        // hide all questions except the first one
         Array.from(questions).forEach((question, index) => {
             if (index !== currentQuestion) {
                 question.classList.add("hidden");
