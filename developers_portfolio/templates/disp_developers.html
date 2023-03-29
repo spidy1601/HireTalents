@@ -8,10 +8,10 @@
 </head>
 <body>
     List of all developers according to your need.
-    <form method="post" id="image-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{devform.as_p}}
-        <button type="submit">Submit</button>
-    </form>
+    
+    {%for detail in dev_details%}
+    {{detail.value}}
+    <br>
+    {% endfor %}
 </body>
 </html>

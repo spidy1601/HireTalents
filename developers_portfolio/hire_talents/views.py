@@ -69,5 +69,5 @@ def display_developers(request):
     return render(request,'all-developers.html',{'devform':form})
 
 def disp_developers(request):
-    
-    dev_details=get_dev_details()
+    dev_details=get_dev_details(17)
+    return render(request,'disp_developers.html',{'dev_details':dev_details[0]}) 

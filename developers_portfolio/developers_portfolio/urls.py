@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',hire_views.home,name='home'),
     path('developers',hire_views.display_developers,name='all_developers'),
+    path('display',hire_views.disp_developers,name='disp_developers'),
     path('surveys/create/<str:slug>/', hire_views.CreateSurveyFormView.as_view(), name='create'),    
     path('surveys/', include('djf_surveys.urls')),
 
