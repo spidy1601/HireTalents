@@ -12,7 +12,10 @@
 <body>
     <h1>This is </h1>
     <div class="container">
-    <a class="btn btn-info" href={% url 'create' slug=slug_text %}>Start the Process Now!</a>
+    <a class="btn btn-info" href={% url 'create' slug=client %}>Start the Process Now!</a>
+    <br>
+    <a class="btn btn-info" href={% url 'create' slug=employee %}>Enter Employee Now!</a>
+
     </div>
 </body>
 </html>

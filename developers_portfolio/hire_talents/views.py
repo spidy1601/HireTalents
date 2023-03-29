@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-
+from django.http import HttpResponse
 from djf_surveys.views import SurveyFormView
 from django.contrib import messages
 from djf_surveys.models import Survey, UserAnswer
@@ -12,8 +12,8 @@ from djf_surveys.mixin import ContextTitleMixin
 from djf_surveys.forms import CreateSurveyForm
 from django.views.generic import DetailView 
 from .forms import DeveloperForm
-
-
+from .logics import get_dev_details
+from django.views import View
 
 class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
     template_name = 'master.html'
@@ -36,7 +36,12 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
             messages.warning(request, gettext("You have submitted out this survey."))
             return redirect("home")
         return super().dispatch(request, *args, **kwargs)
-
+    def post(self,request,slug):
+        experience = []
+        experience.append(request.POST.get('field_survey_1'))
+        print(experience)
+        print(request.POST.get('field_survey_1'),request.POST.get('field_survey_5'),"<><><><><><><><>")
+        return HttpResponse("OK")
     def get_form(self, form_class=None):
         if form_class is None:
             form_class = self.get_form_class()
@@ -47,10 +52,12 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
 
     def get_sub_title_page(self):
         return self.get_object().description
+    
 
 def home(request):
-    slug="clients-requirements"
-    return render(request,'home.html',{'slug_text':slug})
+    client="clients-requirements"
+    employee = "create-employee"
+    return render(request,'home.html',{'client':client,'employee':employee})
 
 def display_developers(request):
     form = DeveloperForm()
@@ -60,3 +67,7 @@ def display_developers(request):
             form.save()
             return redirect('home')
     return render(request,'all-developers.html',{'devform':form})
+
+def disp_developers(request):
+    
+    dev_details=get_dev_details()
