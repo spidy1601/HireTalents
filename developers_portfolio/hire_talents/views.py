@@ -11,6 +11,7 @@ from django.views.generic.edit import FormMixin
 from djf_surveys.mixin import ContextTitleMixin
 from djf_surveys.forms import CreateSurveyForm
 from django.views.generic import DetailView 
+from .forms import DeveloperForm
 
 
 
@@ -52,4 +53,10 @@ def home(request):
     return render(request,'home.html',{'slug_text':slug})
 
 def display_developers(request):
-    return render(request,'all-developers.html')
+    form = DeveloperForm()
+    if request.method == "POST":
+        form = DeveloperForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    return render(request,'all-developers.html',{'devform':form})
