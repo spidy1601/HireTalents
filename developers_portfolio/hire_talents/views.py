@@ -36,11 +36,11 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
             messages.warning(request, gettext("You have submitted out this survey."))
             return redirect("home")
         return super().dispatch(request, *args, **kwargs)
-    def post(self,request,slug):
-        experience = []
-        experience.append(request.POST.get('field_survey_1'))
-        print(experience)
-        print(request.POST.get('field_survey_1'),request.POST.get('field_survey_5'),"<><><><><><><><>")
+    # def post(self,request,slug):
+    #     experience = []
+    #     experience.append(request.POST.get('field_survey_1'))
+    #     print(experience)
+    #     print(request.POST.get('field_survey_1'),request.POST.get('field_survey_5'),"<><><><><><><><>")
         return HttpResponse("OK")
     def get_form(self, form_class=None):
         if form_class is None:
@@ -59,15 +59,15 @@ def home(request):
     employee = "create-employee"
     return render(request,'home.html',{'client':client,'employee':employee})
 
-def display_developers(request):
+def developers_image(request):
     form = DeveloperForm()
     if request.method == "POST":
         form = DeveloperForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return redirect('home')
-    return render(request,'all-developers.html',{'devform':form})
+    return render(request,'developers-image.html',{'devform':form})
 
 def disp_developers(request):
-    dev_details=get_dev_details(17)
-    return render(request,'disp_developers.html',{'dev_details':dev_details[0]}) 
+    dev_details=get_dev_details(21)
+    return render(request,'disp_developers.html',{'dev_details':dev_details[0],'dev_image':dev_details[1][0]}) 

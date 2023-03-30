@@ -5,4 +5,4 @@ class DeveloperForm(forms.ModelForm):
     developer_image = forms.ImageField()
     class Meta:
         model = DeveloperImage
-        fields='__all__'
+        fields=['developer_image',]
