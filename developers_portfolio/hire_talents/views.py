@@ -70,5 +70,7 @@ def developers_image(request):
 
 def disp_developers(request):
     num = 22
+    if request.method =="POST":
+        print(request.POST.get('Devarsh'))
     dev_details=get_dev_details(num)
     return render(request,'disp_developers.html',{'dev_details':dev_details[0],'dev_image':dev_details[1][0]}) 
