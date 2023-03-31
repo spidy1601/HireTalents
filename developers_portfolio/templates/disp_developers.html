@@ -13,70 +13,86 @@
 }
 
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
     List of all developers according to your need.
     <br>
     <br>
-<!--     
-    <div style="width: 100%;">
-        <div style="width: 30%; height: 100px; float: left;"> 
-            <img src="{{dev_image.developer_image.url}}" alt="DEV">
-        </div>
-        
-        <div style="flex-grow: 1;"> 
-            {%for detail in dev_details%}
-            {{detail.value}}
-            <br>
-            {% endfor %}
-        </div>
-        
-    </div> -->
-
-    <!-- <div class="container" style="display: flex; height: 100px;">
-        <div style="width: 30%;">
-            <img style="width:1rem; height: 1rem;" src="{{dev_image.developer_image.url}}" alt="DEV">
-        </div>
-        <div style="flex-grow: 1;">
-            {%for detail in dev_details%}
-            {{detail.value}}
-            <br>
-            {% endfor %}
-        </div>
-    </div> -->
-
-    <!-- <div class="container">
-        <div class="image">
-            <img src="{{dev_image.developer_image.url}}" alt="DEV">
-        </div>
-        <div class="text">
-            {%for detail in dev_details%}
-            {{detail.value}}
-            <br>
-            {% endfor %}
-        </div>
-      </div> -->
-
       <table style="width:100%">
         <tr style="height:200px">
             <td style="width:30%"><img style="max-height:100%; max-width:100%;" src="{{dev_image.developer_image.url}}" alt="DEV"></td>
+            
+            
             <td >
-                {%for detail in dev_details%}
-                {{detail.value}}
+                <div class="panel-group" id="accordion"><div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">About the Developer</a></h4></div>
+                      <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {%for detail in dev_details%}
+                            {%if forloop.counter == 1%}
+                            <strong>Name: </strong>{{detail.value}} <br>
+                            {%endif%}
+                            {%if forloop.counter == 2%}
+                            <strong>E-mail id: </strong>{{detail.value}} <br>
+                            {%endif%}
+                            {%if forloop.counter == 3%}
+                            <strong>Education: </strong>{{detail.value}} <br>
+                            {%endif%}
+                            {%if forloop.counter == 4%}
+                            <strong>Skills: </strong>{{detail.value}} <br>
+                            {%endif%}
+                            {%if forloop.counter == 5%}
+                            <strong>Experience: </strong>{{detail.value}} <br>
+                            {%endif%}
+                            {%if forloop.counter == 6%}
+                            <strong>Awards/Certification: </strong>{{detail.value}} <br>
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Links and Websites</a>
+                        </h4>
+                      </div>
+                      <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {%for detail in dev_details%}
+                            {%if forloop.counter == 7%}
+                            {{detail.value}}
+                            {%endif%}
+                            {%endfor%}
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Reviews by some client/s</a>
+                        </h4>
+                      </div>
+                      <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {%for detail in dev_details%}
+                            {%if forloop.counter == 8%}
+                            {{detail.value}}
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
             <br>
-            {% endfor %}</td>
-        </tr>
-        <!-- <tr>
-            <td style="width:30%"><img src="{{dev_image.developer_image.url}}" alt="DEV"></td>
-            <td style="width:70%">
-                {%for detail in dev_details%}
-                {{detail.value}}
-            <br>
-            {% endfor %}
             </td>
-        </tr> -->
+        </tr>
       </table>
-  
+     
     
 </body>
 </html>

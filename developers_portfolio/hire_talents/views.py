@@ -69,5 +69,6 @@ def developers_image(request):
     return render(request,'developers-image.html',{'devform':form})
 
 def disp_developers(request):
-    dev_details=get_dev_details(21)
+    num = 22
+    dev_details=get_dev_details(num)
     return render(request,'disp_developers.html',{'dev_details':dev_details[0],'dev_image':dev_details[1][0]}) 
