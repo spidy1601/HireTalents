@@ -69,8 +69,8 @@ def developers_image(request):
     return render(request,'developers-image.html',{'devform':form})
 
 def disp_developers(request):
-    num = 22
+    nums = [22,23]
     if request.method =="POST":
-        print(request.POST.get('Devarsh'))
-    dev_details=get_dev_details(num)
-    return render(request,'disp_developers.html',{'dev_details':dev_details[0],'dev_image':dev_details[1][0]}) 
+        print(request.POST)
+    all_dev_details=get_dev_details(nums)
+    return render(request,'disp_developers.html',{'all_dev_details':all_dev_details}) 
