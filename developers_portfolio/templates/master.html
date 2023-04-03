@@ -25,7 +25,7 @@
             <div class="max-w-lg mx-auto">
                 <h1 class="text-2xl font-bold text-center text-blue-500 sm:text-3xl">LOGO</h1>
     
-                <form method="post" id="survey-form" enctype="multipart/form-data">
+                <form method="post" id="survey-form" name="survey-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
                         <div class="question {% if not forloop.first %}hidden{% endif %}">
@@ -35,6 +35,9 @@
                                 <div class="mt-1" id="choice_list">
                                     {% if field.field.widget.input_type == 'radio' or field.field.widget.input_type == 'checkbox' %}
                                     {{field}}
+                                    {% elif field.label == "Upload Image of the developer"%}
+                                    <label for="image">Photo</label>
+                                    <input type="file" name="image" accept="image/*">
                                     {%else%}
                                         {{ field|addclass:'w-full p-4 pr-12 text-sm border-gray-500 rounded-lg shadow-sm' }}
                                     {% endif %}
@@ -49,7 +52,7 @@
                         <button type="button" class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded prev-btn" style="display:none">Previous</button>
                         <button type="button" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded next-btn " {% if forloop.last %}style="display:none"{% endif %}>Next</button>
                         <button type="submit" class="btn btn-primary submit-btn block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" {% if not forloop.last %}style="display:none"{% endif %}>Submit</button>
-                        <button type="button" class="btn btn-primary image-btn block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" onclick="submitFormAndRedirect()" {% if not forloop.last %}style="display:none"{% endif %}>Submit and Go to Other Form</button>
+                        {% comment %} <button type="button" class="btn btn-primary form-btn block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" onclick="submitFormAndRedirect()" {% if not forloop.last %}style="display:none"{% endif %}>Submit and Go to Other Form</button> {% endcomment %}
                     </div>
                 </form>
             </div>
@@ -62,7 +65,7 @@
        <script>
         function submitFormAndRedirect() {
             // Submit the form
-            document.getElementById('survey-form').submit();
+            document.getElementById("survey-form").submit();
             
             // Redirect to the other form
             window.location.href = '/image';
@@ -72,7 +75,7 @@
         const prevBtn = form.querySelector(".prev-btn");
         const nextBtn = form.querySelector(".next-btn");
         const submitBtn = form.querySelector(".submit-btn");
-        const imageBtn = form.querySelector(".image-btn");
+        const formBtn = form.querySelector(".form-btn");
         const questions = form.querySelectorAll(".question");
         let currentQuestion = 0;
 
@@ -95,15 +98,15 @@
                 if (submitBtn) {
                     submitBtn.style.display = "none";
                 }
-                if (imageBtn) {
-                    imageBtn.style.display = "none";
+                if (formBtn) {
+                    formBtn.style.display = "none";
                 }
 
             }
             if (currentQuestion < questions.length - 1) {
                 nextBtn.style.display = "block";
                 submitBtn.style.display = "none";
-                imageBtn.style.display = "none";
+                formBtn.style.display = "none";
                 }
                 } 
 
@@ -115,7 +118,7 @@
             if (currentQuestion === questions.length - 1) {
                 nextBtn.style.display = "none";
                 submitBtn.style.display = "block";
-                imageBtn.style.display = "block";
+                formBtn.style.display = "block";
             }
             if (currentQuestion > 0) {
                 prevBtn.style.display = "block";

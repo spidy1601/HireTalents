@@ -14,6 +14,7 @@ from django.views.generic import DetailView
 from .forms import DeveloperForm
 from .logics import get_dev_details
 from django.views import View
+from .models import DeveloperImage
 
 class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
     template_name = 'master.html'
@@ -36,12 +37,13 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
             messages.warning(request, gettext("You have submitted out this survey."))
             return redirect("home")
         return super().dispatch(request, *args, **kwargs)
-    # def post(self,request,slug):
-    #     experience = []
-    #     experience.append(request.POST.get('field_survey_1'))
-    #     print(experience)
-    #     print(request.POST.get('field_survey_1'),request.POST.get('field_survey_5'),"<><><><><><><><>")
-        return HttpResponse("OK")
+    def post(self,request,*args,**kwargs):
+        print(request.FILES['image'])
+        image = request.FILES['image']
+        my_model = DeveloperImage(developer_image=image)
+        my_model.save()
+        return super().post(self,request,*args,**kwargs)
+
     def get_form(self, form_class=None):
         if form_class is None:
             form_class = self.get_form_class()
@@ -69,7 +71,7 @@ def developers_image(request):
     return render(request,'developers-image.html',{'devform':form})
 
 def disp_developers(request):
-    nums = [22,23]
+    nums = [22,23,24]
     if request.method =="POST":
         print(request.POST)
     all_dev_details=get_dev_details(nums)
