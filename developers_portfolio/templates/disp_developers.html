@@ -6,8 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Developers</title>
     <style>
-  input[type="checkbox"][id^="one"] {
+  input[type="checkbox"][id^="id"] {
   display: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 7px solid #bbb;
+  border-radius: 5px;
 }
 
 label {
@@ -86,19 +95,19 @@ label img {
 
         <tr style="height:200px">  
             <td style="width:30%">
-                <input type="checkbox" name={{dev.1.0.value}} id={{dev.0.0.answer_id}} value={{dev.0.0.answer_id}}>
-                <label for={{dev.0.0.answer_id}}>
+                <input type="checkbox" name={{dev.1.0.value}} id="id{{dev.0.0.answer_id}}" value={{dev.0.0.answer_id}}>
+                <label for="id{{dev.0.0.answer_id}}">
                 <img style="max-height:100%; max-width:100%;" src="{{dev.0.0.developer_image.url}}" alt={{dev.1.0.value}} ></td>
                 </label>
             
             <td class="detail">
-                <div class="panel-group" id="accordion"><div class="panel panel-default" ><div class="panel-heading"><h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">About the Developer</a></h4></div>
-                      <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-group" id="accordion{{dev.0.0.answer_id}}"><div class="panel panel-default" ><div class="panel-heading"><h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion{{dev.0.0.answer_id}}" href="#collapse1{{dev.0.0.answer_id}}">About the Developer</a></h4></div>
+                      <div id="collapse1{{dev.0.0.answer_id}}" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {%for detail in dev.0%}
+                            {%for detail in dev.1%}
                             {%if forloop.counter == 1%}
-                            <strong>Name: </strong>{{detail.value}} <br> CHANGE Name to detail.question.label
+                            <strong>Name: </strong>{{detail.value}} <br>
                             {%endif%}
                             {%if forloop.counter == 2%}
                             <strong>E-mail id: </strong>{{detail.value}} <br>
@@ -122,12 +131,12 @@ label img {
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Links and Websites</a>
+                          <a data-toggle="collapse" data-parent="#accordion{{dev.0.0.answer_id}}" href="#collapse2{{dev.0.0.answer_id}}">Links and Websites</a>
                         </h4>
                       </div>
-                      <div id="collapse2" class="panel-collapse collapse">
+                      <div id="collapse2{{dev.0.0.answer_id}}" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {%for detail in dev.0%}
+                            {%for detail in dev.1%}
                             {%if forloop.counter == 7%}
                             {{detail.value}}
                             {%endif%}
@@ -139,12 +148,12 @@ label img {
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Reviews by some client/s</a>
+                          <a data-toggle="collapse" data-parent="#accordion{{dev.0.0.answer_id}}" href="#collapse3{{dev.0.0.answer_id}}">Reviews by some client/s</a>
                         </h4>
                       </div>
-                      <div id="collapse3" class="panel-collapse collapse">
+                      <div id="collapse3{{dev.0.0.answer_id}}" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {%for detail in dev.0%}
+                            {%for detail in dev.1%}
                             {%if forloop.counter == 8%}
                             {{detail.value}}
                             {%endif%}
@@ -152,12 +161,11 @@ label img {
                         </div>
                       </div>
                     </div>
-                  </div> 
-            <br>
+                  </div>
+        
             </td>
         </tr>
-      
-        {% endfor %}
+      {% endfor %}
       </table>
       <button type="submit">submit</button>
     </form>
