@@ -23,17 +23,11 @@ def get_dev_details(nums=[22]):
 def search_dev(client_skills=['PyThOn','javascript','reactjs']):
     cleaned_skills = list(map(str.lower,client_skills))
     all_skills = Answer.objects.filter(question_id=19).values_list(Lower('value'),flat=True)
-    #Converted queryset to NestedList contains only .value
 
     # convert all the skills in dev_skills to lowercase
     dev_skills = list(map(methodcaller('split',','),all_skills))
 
-
-
-    selected_dev_id = []
     # iterate through dev_skills and check if all skills in skills are present in each sublist
-    for i,skill_set in enumerate(dev_skills):
-        if all(skill in skill_set for skill in cleaned_skills):
-            selected_dev_id.append(all_skills[i].user_answer_id)
-    
+    selected_dev_id = [all_skills[i].user_answer_id for i, skill_set in enumerate(dev_skills) if all(skill in skill_set for skill in cleaned_skills)]
+
     return selected_dev_id
