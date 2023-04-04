@@ -12,7 +12,7 @@ from djf_surveys.mixin import ContextTitleMixin
 from djf_surveys.forms import CreateSurveyForm
 from django.views.generic import DetailView 
 from .forms import DeveloperForm
-from .logics import get_dev_details
+from .logics import *
 from django.views import View
 from .models import DeveloperImage
 
@@ -70,9 +70,9 @@ def developers_image(request):
             return redirect('home')
     return render(request,'developers-image.html',{'devform':form})
 
-def disp_developers(request):
-    nums = [22,23,24]
+def display(request):
+    nums = search_dev()
     if request.method =="POST":
         print(request.POST)
     all_dev_details=get_dev_details(nums)
-    return render(request,'disp_developers.html',{'all_dev_details':all_dev_details}) 
+    return render(request,'display.html',{'all_dev_details':all_dev_details}) 

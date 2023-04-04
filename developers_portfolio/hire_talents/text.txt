@@ -1,0 +1,19 @@
+dev_skills=[["Python","java","javascript","c","c++","django","flask","reactjs"], 
+["Python","java","javascript","c","c++","django","flask","reactjs2"], 
+["Python","java","javascript","c","c++","django","flask","reactjs"], 
+["Python","java","javascript","c","c++","django","flask","reactjs"], 
+["Python","java","javascript","c","c++","django","flask","reactjs"], 
+["Python","java","javascript","c","c++","django","flask","reactjs","php","android"], 
+["Python","javascript","c","django"], 
+["Python","java","javascript","c","c++","django","flask","reactjs"], 
+["Python","java","javascript","c","c++","django","flask","reactjs"], 
+["Python","java","javascript","c","c++","django","flask","reactjs"]]
+
+skills=['PyThOn','javascript','reactjs']
+
+
+  {% if dev.0.0.developer_image %}
+                <img style="max-height:100%; max-width:100%;" src="{{dev.0.0.developer_image.url}}" alt={{dev.1.0.value}} ></td>
+                {% else %}
+                <img style="max-height:100%; max-width:100%;" src="media/images/developer.jpg" alt={{dev.1.0.answer_id}} ></td>
+                {% endif %}
