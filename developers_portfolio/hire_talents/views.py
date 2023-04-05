@@ -16,6 +16,11 @@ from .logics import *
 from django.views import View
 from .models import DeveloperImage
 
+def home(request):
+    client="clients-requirements"
+    employee = "create-employee"
+    return render(request,'home.html',{'client':client,'employee':employee})
+
 class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
     template_name = 'master.html'
     model = Survey
@@ -38,10 +43,12 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
             return redirect("home")
         return super().dispatch(request, *args, **kwargs)
     def post(self,request,*args,**kwargs):
-        print(request.FILES['image'])
-        image = request.FILES['image']
-        my_model = DeveloperImage(developer_image=image)
-        my_model.save()
+        # print(request.FILES['image'])
+        image=''
+        if image:
+            image = request.FILES['image']
+            my_model = DeveloperImage(developer_image=image)
+            my_model.save()
         return super().post(self,request,*args,**kwargs)
 
     def get_form(self, form_class=None):
@@ -54,25 +61,15 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
 
     def get_sub_title_page(self):
         return self.get_object().description
-    
-
-def home(request):
-    client="clients-requirements"
-    employee = "create-employee"
-    return render(request,'home.html',{'client':client,'employee':employee})
-
-def developers_image(request):
-    form = DeveloperForm()
-    if request.method == "POST":
-        form = DeveloperForm(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    return render(request,'developers-image.html',{'devform':form})
 
 def display(request):
-    nums = search_dev()
+    client_skills = Answer.objects.filter(question_id=5).values_list(Lower('value'),flat=True)
+    client_skills= client_skills[len(client_skills)-1].split(",")
+    nums = search_dev(client_skills)
     if request.method =="POST":
         print(request.POST)
     all_dev_details=get_dev_details(nums)
-    return render(request,'display.html',{'all_dev_details':all_dev_details}) 
+    return render(request,'display.html',{'all_dev_details':all_dev_details})
+
+def searching(request):
+    return render(request,'searching.html') 

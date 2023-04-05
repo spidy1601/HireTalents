@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css"/>{% endblock %}
 </head>
 <body>
+    {% comment %} {% debug %} {% endcomment %}
     {% if messages %}
         {% for message in messages %}
             {% include 'djf_surveys/components/alert.html' %}
@@ -51,7 +52,11 @@
                     <div class="inline-flex">
                         <button type="button" class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded prev-btn" style="display:none">Previous</button>
                         <button type="button" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded next-btn " {% if forloop.last %}style="display:none"{% endif %}>Next</button>
-                        <button type="submit" class="btn btn-primary submit-btn block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" {% if not forloop.last %}style="display:none"{% endif %}>Submit</button>
+                        {% if title == "Client's Requirements" %}
+                            <button type="submit" class="btn btn-primary submit-btn block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" formaction="{% url 'searching'%}" {% if not forloop.last %}style="display:none"{% endif %}>Submit</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-primary submit-btn block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" {% if not forloop.last %}style="display:none"{% endif %}>Submit</button>
+                        {% endif %}
                     </div>
                 </form>
             </div>
