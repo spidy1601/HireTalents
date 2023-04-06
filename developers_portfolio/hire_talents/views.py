@@ -14,7 +14,7 @@ from django.views.generic import DetailView
 from .forms import DeveloperForm
 from .logics import *
 from django.views import View
-from .models import DeveloperImage
+from .models import DeveloperImage,ClientDetail
 
 def home(request):
     client="clients-requirements"
@@ -27,6 +27,12 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
     form_class = CreateSurveyForm
     success_url = reverse_lazy("home")
     title_page = _("Add Survey")
+
+    def form_valid(self, form):
+        if self.get_title_page() == "Client's Requirements":
+            print("INSIDE FORM_VALID")
+            return redirect('searching')
+        return super().form_valid(form)
 
 
     def dispatch(self, request, *args, **kwargs):
@@ -42,10 +48,9 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
             messages.warning(request, gettext("You have submitted out this survey."))
             return redirect("home")
         return super().dispatch(request, *args, **kwargs)
+    
     def post(self,request,*args,**kwargs):
-        # print(request.FILES['image'])
-        image=''
-        if image:
+        if 'image' in request.FILES:
             image = request.FILES['image']
             my_model = DeveloperImage(developer_image=image)
             my_model.save()
@@ -62,14 +67,19 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
     def get_sub_title_page(self):
         return self.get_object().description
 
+def final_page(request):
+    return render(request,'final.html') 
+
 def display(request):
     client_skills = Answer.objects.filter(question_id=5).values_list(Lower('value'),flat=True)
     client_skills= client_skills[len(client_skills)-1].split(",")
     nums = search_dev(client_skills)
     if request.method =="POST":
-        print(request.POST)
+        my_model=ClientDetail(selected_ids=request.POST.getlist("selected-id"))
+        my_model.save()
+        return redirect('final-page')
     all_dev_details=get_dev_details(nums)
     return render(request,'display.html',{'all_dev_details':all_dev_details})
 
 def searching(request):
-    return render(request,'searching.html') 
+    return render(request,'searching.html')

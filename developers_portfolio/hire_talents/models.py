@@ -12,9 +12,20 @@ class DeveloperImage(models.Model):
         max_id = UserAnswer.objects.aggregate(max_id=Max('id'))['max_id']
         
         # Set the value of field_a in ModelA to max_id
-        self.answer_id = max_id
+        self.answer_id = max_id + 1
         
-        super(DeveloperImage, self).save(*args, **kwargs)
+        super().save(self,*args, **kwargs)
 
+class ClientDetail(models.Model):
+    selected_ids=models.CharField(max_length=300)
+    detail_id = models.IntegerField(unique=True)
 
+    def save(self, *args, **kwargs):
+        # Get the maximum ID of ModelB
+        max_id = UserAnswer.objects.aggregate(max_id=Max('id'))['max_id']
+        
+        # Set the value of field_a in ModelA to max_id
+        self.detail_id = max_id
+        
+        super().save(self,*args, **kwargs)
 
