@@ -12,6 +12,23 @@
     {% block extra_css %} 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.20.0/css/mdb.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css"/>{% endblock %}
+    <style>
+        .image-container {
+            margin:0px;
+  display: flex;
+  justify-content: center; /* centers the images horizontally */
+  align-items: center; /* centers the images vertically */
+}
+.mylogo {
+  width: 20%; /* adjust the width of the images as needed */
+  height: auto; /* scales the height proportionally */
+}
+
+.separator {
+  margin: 0 10px; /* adds spacing on either side of the separator */
+  font-size: 5em;
+}
+    </style>
 </head>
 <body>
     {% comment %} {% debug %} {% endcomment %}
@@ -24,7 +41,11 @@
         {% block content %} 
         <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
             <div class="max-w-lg mx-auto">
-                <h1 class="text-2xl font-bold text-center text-blue-500 sm:text-3xl">LOGO</h1>
+               <a href={% url 'home' %}><div class="image-container">
+                    <img class="mylogo" src="/static/img/logo-hire-talents.png" alt="Image 1">
+                    <span class="separator">|</span>
+                    <img class="mylogo" src="/static/img/logo_latitude.jpg" alt="Image 2">
+                </div></a> 
     
                 <form method="post" id="survey-form" name="survey-form" enctype="multipart/form-data">
                     {% csrf_token %}

@@ -25,12 +25,11 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
     template_name = 'master.html'
     model = Survey
     form_class = CreateSurveyForm
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("create",kwargs={'slug': "create-employee"})
     title_page = _("Add Survey")
 
     def form_valid(self, form):
         if self.get_title_page() == "Client's Requirements":
-            print("INSIDE FORM_VALID")
             return redirect('searching')
         return super().form_valid(form)
 
