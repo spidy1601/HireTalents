@@ -15,8 +15,8 @@
   justify-content: center; /* centers the images horizontally */
   align-items: center; /* centers the images vertically */
 }
-img {
-  width: 30%; /* adjust the width of the images as needed */
+.image {
+  width: 20%; /* adjust the width of the images as needed */
   height: auto; /* scales the height proportionally */
 }
 
@@ -28,10 +28,35 @@ img {
 </head>
 <body>
 
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="../static/img/logo-hire-talents-crop.png" width="30" height="24"alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'why'%}">Why</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Documentation</a>
+          </li>
+  
+        </ul>
+      </div>
+    </div>
+  </nav>
+
     <div class="image-container">
-        <img src="../static/img/logo-hire-talents.png" alt="Image 1">
+        <img class="image" src="../static/img/logo-hire-talents.png" alt="Image 1">
         <span class="separator">|</span>
-        <img src="../static/img/logo_latitude.jpg" alt="Image 2">
+        <img class="image" src="../static/img/logo_latitude.jpg" alt="Image 2">
     </div>
 
     <div class="text-center">
@@ -40,6 +65,7 @@ img {
     <br>
     <br>
     <br>
+    {% comment %} To be deleted {% endcomment %}
     <a  class="btn btn-info" href={% url 'create' slug=employee %}>Latitude, Please Enter Employee details.</a>
     <br>
     <a class="btn btn-info" href={% url 'display' %}>Selected Employees</a>

@@ -21,6 +21,9 @@ def home(request):
     employee = "create-employee"
     return render(request,'home.html',{'client':client,'employee':employee})
 
+def why(request):
+    return render(request,'why.html')
+
 class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
     template_name = 'master.html'
     model = Survey

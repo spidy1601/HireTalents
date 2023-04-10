@@ -70,14 +70,10 @@
                         </div>
                     {% endfor %}
                         
-                    <div class="inline-flex">
-                        <button type="button" class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded prev-btn" style="display:none">Previous</button>
-                        <button type="button" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded next-btn " {% if forloop.last %}style="display:none"{% endif %}>Next</button>
-                        {% comment %} {% if title == "Client's Requirements" %} {% endcomment %}
-                            {% comment %} <button type="submit" class="btn btn-primary submit-btn block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" formaction="{% url 'searching'%}" {% if not forloop.last %}style="display:none"{% endif %}>Submit</button> {% endcomment %}
-                        {% comment %} {% else %} {% endcomment %}
-                            <button type="submit" class="btn btn-primary submit-btn block w-full mt-5 px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg" {% if not forloop.last %}style="display:none"{% endif %}>Submit</button>
-                        {% comment %} {% endif %} {% endcomment %}
+                    <div class="grid grid-cols-2 gap-60 justify-items-stretch">
+                        <button type="button" class="col-start-1 bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded prev-btn" style="display:none">Previous</button>
+                        <button type="button" class="col-start-2 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded next-btn " {% if forloop.last %}style="display:none"{% endif %}>Next</button>
+                        <button type="submit" class="col-start-2 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded submit-btn" {% if not forloop.last %}style="display:none"{% endif %}>Submit</button>
                     </div>
                 </form>
             </div>
@@ -88,7 +84,7 @@
     {% include 'djf_surveys/components/alert_js.html' %}
     {% block extra_js %}
        <script>
-        
+
         const form = document.getElementById("survey-form");
         const prevBtn = form.querySelector(".prev-btn");
         const nextBtn = form.querySelector(".next-btn");
