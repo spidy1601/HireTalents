@@ -15,6 +15,7 @@ from .forms import DeveloperForm
 from .logics import *
 from django.views import View
 from .models import DeveloperImage,ClientDetail
+from datetime import date
 
 def home(request):
     client="clients-requirements"
@@ -69,8 +70,9 @@ class CreateSurveyFormView(ContextTitleMixin, SurveyFormView):
     def get_sub_title_page(self):
         return self.get_object().description
 
-def final_page(request):
-    return render(request,'final.html') 
+def appointment_page(request):
+    today = date.today()
+    return render(request,'appointment.html',{'today':today}) 
 
 def display(request):
     client_skills = Answer.objects.filter(question_id=5).values_list(Lower('value'),flat=True)
@@ -79,7 +81,7 @@ def display(request):
     if request.method =="POST":
         my_model=ClientDetail(selected_ids=request.POST.getlist("selected-id"))
         my_model.save()
-        return redirect('final-page')
+        return redirect('appointment_page')
     all_dev_details=get_dev_details(nums)
     return render(request,'display.html',{'all_dev_details':all_dev_details})
 
