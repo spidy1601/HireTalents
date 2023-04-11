@@ -28,6 +28,7 @@ urlpatterns = [
     path('',hire_views.home,name='home'),
     path('display',hire_views.display,name='display'),
     path('why',hire_views.why,name='why'),
+    path('inquiries',hire_views.inquiries,name='inquiries'),
     path('searching',hire_views.searching,name='searching'),
     path('appointment_page',hire_views.appointment_page,name='appointment_page'),
     path('surveys/create/<str:slug>/', hire_views.CreateSurveyFormView.as_view(), name='create'),    

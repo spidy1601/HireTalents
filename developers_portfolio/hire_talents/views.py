@@ -87,3 +87,12 @@ def display(request):
 
 def searching(request):
     return render(request,'searching.html')
+
+def inquiries(request):
+    # all_devs=ClientDetail.objects.filter(meeting_done=0)[0].selected_ids.replace('[',"").replace(']',"").replace("'","").split(',')
+    vals=ClientDetail.objects.values_list('detail_id')
+    all_companies=[]
+    for val in vals:
+        all_companies.append(Answer.objects.filter(user_answer_id=val[0],question_id=12).values('user_answer_id','value')[10])
+    # Comapny name : all_companies[0][0]['value']
+    return render(request,'inquiries.html',{'all_companies':all_companies})
