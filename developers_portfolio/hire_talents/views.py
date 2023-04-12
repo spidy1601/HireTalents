@@ -88,11 +88,28 @@ def display(request):
 def searching(request):
     return render(request,'searching.html')
 
+def detail(request,pk):
+    all=Answer.objects.filter(user_answer_id=pk)
+    nums = ClientDetail.objects.filter(detail_id=pk)[0].selected_ids.replace('[',"").replace(']',"").replace("'","").split(',')
+    nums=list(map(int,nums))
+    all_dev_details=get_dev_details(nums)
+    return render(request,'detail.html',{'all':all,'pk':pk,'all_dev_details':all_dev_details})
+
 def inquiries(request):
     # all_devs=ClientDetail.objects.filter(meeting_done=0)[0].selected_ids.replace('[',"").replace(']',"").replace("'","").split(',')
-    vals=ClientDetail.objects.values_list('detail_id')
+    vals=ClientDetail.objects.values_list('detail_id','meeting_done').order_by('-detail_id')
     all_companies=[]
     for val in vals:
-        all_companies.append(Answer.objects.filter(user_answer_id=val[0],question_id=12).values('user_answer_id','value')[10])
+        all_companies.append(Answer.objects.filter(user_answer_id=val[0],question_id=12).values('user_answer_id','value'))
     # Comapny name : all_companies[0][0]['value']
-    return render(request,'inquiries.html',{'all_companies':all_companies})
+    all_lists = zip(all_companies,vals)
+    return render(request,'inquiries.html',{'all_lists':all_lists})
+
+def completed_meeting(request,pk):
+    meeting=ClientDetail.objects.filter(detail_id=pk)
+    print(meeting)
+    if meeting[0].meeting_done == 0:
+        meeting.update(meeting_done=1)
+    else:
+        meeting.update(meeting_done=0)
+    return redirect('inquiries')

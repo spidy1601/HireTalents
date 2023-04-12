@@ -4,55 +4,75 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <title>Inquiries</title>
 </head>
 <body>
-    {%for i in all_inquiries%}
-    {{i.meeting_done}}
-    <br>
-    {%endfor%}
+  <br>
+  <h4 class="bg-dark text-light py-2 rounded text-center">All Inquiries:</h4>
 
-    <table class="table">
+  <ul class="list-group">
+    {% for company,val in all_lists%}
+    <li class="list-group-item list-group-item-action">
+      {% if val.1 == True %}
+      <strike><a href="{% url 'detail' company.0.user_answer_id%} " class="text-success">{{ company.0.value }}</a></strike>
+      {% else %}
+      <a href="{% url 'detail' company.0.user_answer_id%}">{{ company.0.value }}</a>
+      {% endif %}
+        <div class="float-right">
+          {% if val.1 == True %}
+          <!-- <img src="../static/img/success.png" width="50" alt=""> -->
+          <a href="{% url 'completed_meeting' val.0 %}" class="btn"><img src="../static/img/success.png" width="50" alt=""></a>
+          {%else%}
+          <a href="{% url 'completed_meeting' val.0 %}" class="btn"><img src="../static/img/call.png" width="50" alt=""></a>
+          <!-- <a href="{% url 'completed_meeting' val.0 %}" class="btn btn-primary">Meeting Done</a> -->
+          {%endif%}
+        </div>
+
+    </li>
+    {% endfor %}
+</ul>
+<!-- 
+    <table class="list-group">
         <thead class="thead-inverse">
           <tr>
-            <th>Board</th>
-            <th>Posts</th>
-            <th>Topics</th>
-            <th>Last Post</th>
+            <th>User Answer id</th>
+            <th>Company Name</th>
+            <th>Meeting Done</th>
           </tr>
         </thead>
         <tbody>
-          {% for board in boards %}
+          {% for company,val in all_lists%}
             <tr>
               <td>
-                <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
-                <small class="text-muted d-block">{{ board.description }}</small>
+                {% if val.1 == True %}
+                <strike>{{ company.0.user_answer_id }}</strike>
+                {% else %}
+                {{ company.0.user_answer_id }}
+                {% endif %}
               </td>
-              <td class="align-middle">
-                {{ board.get_posts_count }}
+              <td>
+                {% if val.1 == True %}
+                <strike><a href="{% url 'detail' company.0.user_answer_id%}">{{ company.0.value }}</a></strike>
+                {% else %}
+                <a href="{% url 'detail' company.0.user_answer_id%}">{{ company.0.value }}</a>
+                {% endif %}
               </td>
-              <td class="align-middle">
-                {{ board.topics.count }}
-              </td>
-              <td class="align-middle">
-                {% with post=board.get_last_post %}
-                  {% if post %}
-                    <small>
-                      <a href="{% url 'topic_posts' board.pk post.topic.pk %}">
-                        By {{ post.created_by.username }} at {{ post.created_at }}
-                      </a>
-                    </small>
-                  {% else %}
-                    <small class="text-muted">
-                      <em>No posts yet.</em>
-                    </small>
-                  {% endif %}
-                {% endwith %}
+              <td>
+                <a href="{% url 'completed_meeting' val.0 %}" class="btn btn-primary">Tick</a>
               </td>
             </tr>
           {% endfor %}
         </tbody>
-      </table>
-    
+      </table> -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
 </body>
 </html>

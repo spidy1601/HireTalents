@@ -26,8 +26,9 @@ class ClientDetail(models.Model):
         # Get the maximum ID of ModelB
         max_id = UserAnswer.objects.aggregate(max_id=Max('id'))['max_id']
         
-        # Set the value of field_a in ModelA to max_id
-        self.detail_id = max_id
+        if self.detail_id != max_id:
+            # Set the value of field_a in ModelA to max_id
+            self.detail_id = max_id
         
-        super().save(self,*args, **kwargs)
+        super().save(*args, **kwargs)
 
