@@ -22,6 +22,10 @@ def home(request):
     employee = "create-employee"
     return render(request,'home.html',{'client':client,'employee':employee})
 
+def company(request):
+    employee = "create-employee"
+    return render(request,'company-view.html',{'employee':employee})
+
 def why(request):
     return render(request,'why.html')
 

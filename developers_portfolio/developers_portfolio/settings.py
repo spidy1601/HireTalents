@@ -136,3 +136,5 @@ SURVEY_PAGINATION_NUMBER = {
     'answer_list': 10,
     'survey_list': 10
 }
+
+LOGIN_URL = '/admin/login/'
