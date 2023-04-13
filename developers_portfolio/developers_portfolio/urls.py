@@ -18,7 +18,6 @@ urlpatterns = [
     path('detail/<int:pk>/',login_required(hire_views.detail),name='detail'),
     path('completed_meeting/<int:pk>/',login_required(hire_views.completed_meeting),name='completed_meeting'),
     # path('surveys/create/create-employee/', login_required(hire_views.CreateSurveyFormView.as_view()), name='create'),    
-    path('surveys/', include('djf_surveys.urls')),
 
     #Doesnot Require LOGIN
     path('',hire_views.home,name='home'),
@@ -26,6 +25,10 @@ urlpatterns = [
     path('why',hire_views.why,name='why'),
     path('searching',hire_views.searching,name='searching'),
     path('appointment_page',hire_views.appointment_page,name='appointment_page'),
-    path('surveys/create/<str:slug>/', hire_views.CreateSurveyFormView.as_view(), name='create'),    
+    path('surveys/create/<str:slug>/', hire_views.CreateSurveyFormView.as_view(), name='create'),
+
+    #Keep this URL on the bottom
+    path('surveys/', include('djf_surveys.urls')),
+
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
