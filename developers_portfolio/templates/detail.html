@@ -19,9 +19,17 @@ tr {
   border-bottom: 7px solid #bbb;
   border-radius: 5px;
 }
-        </style>
+  </style>
 </head>
 <body>
+
+  <nav aria-label="breadcrumb" class="pt-5">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{%url 'company'%}" data-abc="true">Comapany</a></li>
+      <li class="breadcrumb-item"><a href="{%url 'inquiries'%}" data-abc="true">Inquiries</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><span>Detail-{{pk}}</span></li>
+    </ol>
+  </nav>
 
     <h2 class="bg-dark text-white mx-1 my-1 rounded">Details of the Inquiry for {{pk}}</h2>
     {%for each in all%}

@@ -15,7 +15,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('company',login_required(hire_views.company),name='company'),
     path('inquiries',login_required(hire_views.inquiries),name='inquiries'),
-    path('detail/<int:pk>/',login_required(hire_views.detail),name='detail'),
+    path('developers',login_required(hire_views.developers),name='developers'),
+    path('inquiries/detail/<int:pk>/',login_required(hire_views.detail),name='detail'),
     path('completed_meeting/<int:pk>/',login_required(hire_views.completed_meeting),name='completed_meeting'),
     # path('surveys/create/create-employee/', login_required(hire_views.CreateSurveyFormView.as_view()), name='create'),    
 

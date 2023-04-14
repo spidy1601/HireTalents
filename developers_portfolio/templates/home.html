@@ -30,7 +30,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="{%url 'home'%}">
         <img src="../static/img/logo-hire-talents-crop.png" width="30" height="24"alt="">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,10 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="{%url 'home'%}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'company'%}">Company</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'why'%}">Why</a>
@@ -61,16 +64,6 @@
 
     <div class="text-center">
     <a style="background-color: rgba(24, 76, 247, 0.945);" class="btn btn-secondary btn-lg" href={% url 'create' slug=client %}>Hire Top talents from Latitude Technolabs</a>
-    <br>
-    <br>
-    <br>
-    <br>
-    {% comment %} To be deleted {% endcomment %}
-    <a  class="btn btn-info" href={% url 'create' slug=employee %}>Latitude, Please Enter Employee details.</a>
-    <br>
-    <a class="btn btn-info" href={% url 'display' %}>Selected Employees</a>
-
-
     </div>
 </body>
 </html>

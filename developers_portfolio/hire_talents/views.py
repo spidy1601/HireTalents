@@ -89,6 +89,12 @@ def display(request):
     all_dev_details=get_dev_details(nums)
     return render(request,'display.html',{'all_dev_details':all_dev_details})
 
+def developers(request):
+    id_queries= DeveloperImage.objects.filter().values_list('answer_id')
+    nums=[id[0] for id in id_queries]
+    all_dev_details=get_dev_details(nums)
+    return render(request,'developers.html',{'all_dev_details':all_dev_details})
+
 def searching(request):
     return render(request,'searching.html')
 
