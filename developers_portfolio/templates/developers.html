@@ -16,18 +16,27 @@ tr {
 }
 
     </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+  <nav aria-label="breadcrumb">
+    <ol style="background-color:rgba(133, 133, 133, 0.308) ;" class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{%url 'company'%}" data-abc="true">Company</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><span>Developers</span></li>
+    </ol>
+  </nav>
   
     <h4 style="width:66%; margin-left: auto;margin-right: auto;" class="rounded well text-center">List of all developers in Latitude Technolabs.</h4>
     <br>
     <br>
         <table style="width:60%;margin-left: auto;margin-right: auto;" class="table table-striped-columns">
           {%for dev in all_dev_details%}
-          <div class="card card-block" style="width: 18rem;">
+          <div class="" style="width: 18rem;">
         <tr style="height:50px">  
             <td style="width:20%">
                 <img style="max-height:100%; max-width:100%;float: right;" src="{{dev.0.0.developer_image.url}}" alt={{dev.1.0.value}} ></td>
@@ -97,11 +106,16 @@ tr {
         
             </td>
             <td style="width: 10%;">
-                <a href="{% url 'delete' dev.0.0.answer_id %}" class="btn"><img src="../static/img/delete.png" width="50" alt=""></a>
+                <a href="{% url 'delete_developer' dev.0.0.answer_id %}" onclick="myFunction()" class="btn"><img src="../static/img/delete.png" width="50" alt=""></a>
             </td>
         </tr>
       </div>
       {% endfor %}
       </table>
+      <script>
+        function myFunction() {
+          confirm("{{dev.0.0.answer_id}} is deleted!");
+        }
+        </script>
 </body>
 </html>

@@ -16,6 +16,7 @@ from .logics import *
 from django.views import View
 from .models import DeveloperImage,ClientDetail
 from datetime import date
+import os
 
 def home(request):
     client="clients-requirements"
@@ -123,3 +124,17 @@ def completed_meeting(request,pk):
     else:
         meeting.update(meeting_done=0)
     return redirect('inquiries')
+
+def delete_developer(request,pk):
+    developer_image = DeveloperImage.objects.get(answer_id=pk)
+    image = developer_image.developer_image.path
+
+    if os.path.exists(image):
+        os.remove(image)
+        developer_image.delete()
+        UserAnswer.objects.filter(id=pk).delete()
+        return redirect('developers')
+    else:
+        print("Doesn't Exists")
+        return render(request,'home.html')
+
