@@ -25,7 +25,10 @@ def home(request):
 
 def company(request):
     employee = "create-employee"
-    return render(request,'company-view.html',{'employee':employee})
+    pending_inquiries = ClientDetail.objects.filter(meeting_done=0).count()
+    total_inquiries = ClientDetail.objects.count()
+    total_devs = DeveloperImage.objects.count()
+    return render(request,'company-view.html',{'employee':employee,'pending_inquiries':pending_inquiries,'total_inquiries':total_inquiries,'total_devs':total_devs})
 
 def why(request):
     return render(request,'why.html')

@@ -66,8 +66,12 @@
     
     <div class="text-center">
     <a style="background-color: rgb(237,132,40);"  class="btn" href={% url 'create' slug=employee %}>Please Enter Employee details.</a>
-    <a style="background-color: rgb(49,46,51);"  class="btn text-white" href={% url 'inquiries' %}>All Inquiries</a>
-    <a style="background-color: rgb(49,46,51);"  class="btn text-white" href={% url 'developers' %}>All Developers</a>
+    {%if pending_inquiries > 0%}
+    <a style="background-color: rgb(49,46,51);"  class="btn text-white" href={% url 'inquiries' %}>Show Inquiries <small style="color: red;">{{pending_inquiries}} Pending</small> </a>
+    {%else%}
+    <a style="background-color: rgb(49,46,51);"  class="btn text-white" href={% url 'inquiries' %}>Show Inquiries <small style="color: rgb(0, 255, 21);">{{pending_inquiries}} Pending</small> </a>
+    {%endif%}
+    <a style="background-color: rgb(49,46,51);"  class="btn text-white" href={% url 'developers' %}>Show Developers <small style="color: rgb(150, 245, 190);">{{total_devs}} developers</small></a>
     </div>
 </body>
 </html>
