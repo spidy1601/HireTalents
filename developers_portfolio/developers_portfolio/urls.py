@@ -23,6 +23,7 @@ urlpatterns = [
     # path('surveys/create/create-employee/', login_required(hire_views.CreateSurveyFormView.as_view()), name='create'),    
 
     #Doesnot Require LOGIN
+    path('logout',hire_views.logout_view,name='logout_view'),
     path('',hire_views.home,name='home'),
     path('display',hire_views.display,name='display'),
     path('why',hire_views.why,name='why'),
